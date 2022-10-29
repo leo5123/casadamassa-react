@@ -1,8 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import 'normalize.css'
+import 'normalize.css';
 import Cardapio from './pages/Cardapio';
+import Inicio from 'pages/Inicio';
+import AppRouter from 'routes';
 
 
 const root = ReactDOM.createRoot(
@@ -10,7 +12,7 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-  <Cardapio/>
+    <AppRouter/>
   </React.StrictMode>
 );
 

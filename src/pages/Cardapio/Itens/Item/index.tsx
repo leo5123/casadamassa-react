@@ -1,44 +1,47 @@
 
-import styles from './Item.module.scss'
-import cardapio from '../itens.json'
-import classNames from 'classnames'
+import styles from './Item.module.scss';
+import cardapio from 'data/cardapio.json';
+import classNames from 'classnames';
+import { Prato } from 'types/Pratos';
+import { useNavigate } from 'react-router-dom';
 
-type Props = typeof cardapio[0]
 
-export default function Item(props : Props){
-    const {title, description,size, serving, price,category, photo} = props
-    
-    
-    
-    return(
-        <div className={styles.item}>
-            <div className={styles.item__imagem}>
-                <img src={photo} alt="imagem" />
-            </div>
-            <div className={styles.item__descricao}>
-                <div className={styles.item__titulo}>
-                    <h2>{title}</h2>
-                    <p>{description}</p>
-                </div>
-                <div className={styles.item__tags}>
-                    <div className={classNames({
-                        [styles.item__tipo]: true,
-                        [styles[`item__tipo__${category.label.toLowerCase()}`]]: true
-                    })}>
-                        {category.label}
+type Props = Prato;
 
-                    </div>
-                    <div className={styles.item__porcao}>
-                    {size}g
-                    </div>
-                    <div className={styles.item__qtdpessoas}>
-                    Serve {serving} pessoa{ serving === 1 ? '' : 's'}
-                    </div>
-                    <div className={styles.item__valor}>
-                    R$ {price.toFixed(2)}
-                    </div>
-                </div>
-            </div>
+export default function Item(props: Props) {
+  const { id, title, description, size, serving, price, category, photo } = props;
+  const navigate = useNavigate();
+
+
+  return (
+    <div className={styles.item} onClick={() => navigate(`/prato/${id}`)}>
+      <div className={styles.item__imagem}>
+        <img src={photo} alt="imagem" />
+      </div>
+      <div className={styles.item__descricao}>
+        <div className={styles.item__titulo}>
+          <h2>{title}</h2>
+          <p>{description}</p>
         </div>
-    )
+        <div className={styles.item__tags}>
+          <div className={classNames({
+            [styles.item__tipo]: true,
+            [styles[`item__tipo__${category.label.toLowerCase()}`]]: true
+          })}>
+            {category.label}
+
+          </div>
+          <div className={styles.item__porcao}>
+            {size}g
+          </div>
+          <div className={styles.item__qtdpessoas}>
+            Serve {serving} pessoa{serving === 1 ? '' : 's'}
+          </div>
+          <div className={styles.item__valor}>
+            R$ {price.toFixed(2)}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 }
